@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* Video Background */
         #bg-video {
             position: fixed;
             right: 0;
@@ -45,6 +44,28 @@
             z-index: -1;
         }
 
+        /* Language Switcher */
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .flag-btn {
+            width: 32px;
+            height: 22px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.2s;
+            object-fit: cover;
+        }
+
+        .flag-btn:hover { transform: scale(1.1); border-color: white; }
+
         .container {
             text-align: center;
             padding: 40px 20px;
@@ -58,87 +79,23 @@
             margin: 20px;
         }
 
-        .logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 22px;
-            margin-bottom: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
+        .logo { width: 100px; height: 100px; border-radius: 22px; margin-bottom: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         h1 { font-size: 1.8rem; font-weight: 900; margin: 10px 0; }
-        p { color: rgba(255,255,255,0.7); margin-bottom: 25px; font-size: 1rem; }
+        p { color: rgba(255,255,255,0.7); margin-bottom: 25px; font-size: 1rem; min-height: 3em; }
 
-        /* Store Badges - Precise Sizing */
-        .badge-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
+        .badge-container { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .apple-img { height: 44px; width: auto; }
+        .google-img { height: 66px; width: auto; margin-top: -5px; }
 
-        .badge-link img {
-            display: block;
-        }
+        .social-section { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .social-title { font-size: 0.8rem; font-weight: 800; color: var(--accent-gold); letter-spacing: 1px; margin-bottom: 15px; text-transform: uppercase; }
+        .social-grid { display: flex; justify-content: center; gap: 20px; }
+        .social-icon { width: 32px; height: 32px; opacity: 0.8; transition: 0.2s; }
+        .social-icon:hover { opacity: 1; transform: translateY(-3px); }
 
-        /* Apple is naturally shorter/cleaner */
-        .apple-img {
-            height: 44px;
-            width: auto;
-        }
-
-        /* Google has huge transparent borders, so we make it taller to match visual size */
-        .google-img {
-            height: 66px; 
-            width: auto;
-            margin-top: -5px;
-        }
-
-        /* Social Section */
-        .social-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .social-title {
-            font-size: 0.8rem;
-            font-weight: 800;
-            color: var(--accent-gold);
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .social-grid {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .social-icon {
-            width: 32px;
-            height: 32px;
-            opacity: 0.8;
-            transition: 0.2s;
-        }
-
-        .social-icon:hover {
-            opacity: 1;
-            transform: translateY(-3px);
-        }
-
-        .footer-links {
-            margin-top: 25px;
-        }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.4);
-            font-size: 0.75rem;
-            text-decoration: none;
-            margin: 0 10px;
-        }
+        .footer-links { margin-top: 25px; }
+        .footer-links a { color: rgba(255,255,255,0.4); font-size: 0.75rem; text-decoration: none; margin: 0 10px; }
+        .footer-links a:hover { color: white; text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -148,24 +105,28 @@
     </video>
     <div class="overlay"></div>
 
+    <div class="lang-switcher">
+        <img src="https://flagcdn.com/w80/gr.png" class="flag-btn" onclick="setLang('el')" alt="Greek">
+        <img src="https://flagcdn.com/w80/gb.png" class="flag-btn" onclick="setLang('en')" alt="English">
+    </div>
+
     <div class="container">
         <img src="logo.png" alt="Logo" class="logo">
         
-        <h1>Μάντεψε το Τραγούδι</h1>
-        <p>Το #1 real-time παιχνίδι ελληνικής μουσικής για την παρέα σου!</p>
+        <h1 id="main-title">Μάντεψε το Τραγούδι</h1>
+        <p id="main-desc">Το #1 real-time παιχνίδι ελληνικής μουσικής για την παρέα σου!</p>
 
         <div class="badge-container">
-            <a href="https://apps.apple.com/app/idYOUR_ID" class="badge-link">
+            <a href="https://apps.apple.com/app/idYOUR_ID">
                 <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/el-gr?size=250x83" class="apple-img" alt="App Store">
             </a>
-            
-            <a href="https://play.google.com/store/apps/details?id=com.guessthegreek.music" class="badge-link">
+            <a href="https://play.google.com/store/apps/details?id=com.guessthegreek.music">
                 <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" class="google-img" alt="Play Store">
             </a>
         </div>
 
         <div class="social-section">
-            <div class="social-title">Ακολούθησε μας</div>
+            <div id="follow-title" class="social-title">Ακολούθησε μας</div>
             <div class="social-grid">
                 <a href="https://www.tiktok.com/@guessthegreekapp"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="social-icon" alt="TikTok"></a>
                 <a href="https://www.instagram.com/guess_the_greek_song/"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="social-icon" alt="Instagram"></a>
@@ -175,10 +136,35 @@
         </div>
 
         <div class="footer-links">
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="mailto:your-email@example.com">Contact</a>
+            <a href="https://docs.google.com/document/d/1YsZ_tyHPHAW0VttfDoBRyYv1ATzJIHmHI-s8dU_P484/edit?usp=sharing" target="_blank" id="privacy-link">Privacy Policy</a>
+            <a href="mailto:your-email@example.com" id="contact-link">Contact</a>
         </div>
     </div>
+
+    <script>
+        const translations = {
+            el: {
+                title: "Μάντεψε το Τραγούδι",
+                desc: "Το #1 real-time παιχνίδι ελληνικής μουσικής για την παρέα σου!",
+                follow: "Ακολούθησε μας",
+                contact: "Επικοινωνία"
+            },
+            en: {
+                title: "Guess the Greek Song",
+                desc: "The #1 real-time Greek music trivia game for you and your friends!",
+                follow: "Follow Us",
+                contact: "Contact"
+            }
+        };
+
+        function setLang(lang) {
+            document.getElementById('main-title').innerText = translations[lang].title;
+            document.getElementById('main-desc').innerText = translations[lang].desc;
+            document.getElementById('follow-title').innerText = translations[lang].follow;
+            document.getElementById('contact-link').innerText = translations[lang].contact;
+            document.documentElement.lang = lang;
+        }
+    </script>
 
 </body>
 </html>
